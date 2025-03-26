@@ -40,9 +40,21 @@ const numericStringColumnFilter: IFilterOptionDef[] = [
   },
 ];
 
+const addLeadingZeroes = (value: number): string => {
+  return value < 10 ? "0" + value : value.toString();
+}
+
+const formatDateValue = (unixDate: string): string => {
+  const date = new Date(unixDate);
+  const year = date.getFullYear();
+  const month = addLeadingZeroes(date.getMonth() + 1);
+  const day = addLeadingZeroes(date.getDate());
+  return `${year}-${month}-${day}`;
+}
+
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation", filter: "agTextColumnFilter" },
-  { field: "discovery_date", headerName: "Discovery Date", filter: "agSetColumnFilter" },
+  { field: "discovery_date", headerName: "Discovery Date", filter: "agSetColumnFilter", valueGetter: date => formatDateValue(date.data.discovery_date) },
   { field: "h_mag", headerName: "H (mag)", comparator: compareNumericStrings, filter: "agNumberColumnFilter", filterParams: { filterOptions: numericStringColumnFilter } },
   { field: "moid_au", headerName: "MOID (au)", comparator: compareNumericStrings, filter: "agNumberColumnFilter", filterParams: { filterOptions: numericStringColumnFilter } },
   { field: "q_au_1", headerName: "q (au)", comparator: compareNumericStrings, filter: "agNumberColumnFilter", filterParams: { filterOptions: numericStringColumnFilter } },
