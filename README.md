@@ -53,3 +53,12 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 2. Since the near-earth-asteroids.json stores numbers as strings, we have to filter based on the value converted to a number. Otherwise, we will get inconsistencies when using the default filter (e.g. searching for 'equal to' returns no value). I defined my own filter option, numericStringColumnFilter, to solve this, along with some basic functions to demo it. A similar situation is encountered with sorting, and I have implemented a few custom functions for the comparator function.  
 3. Added formatting to make date appear in YYYY-MM-DD format, which in my opinion, reduces ambiguity between countries that use mm-dd-yyyy vs. dd-mm-yyyy format. Also a personal preference, as it is the same format as SQL databases.
 4. Added simple valueGetter field to convert cell value.
+5. This task I was not able to complete. Upon looking at the documentation, the capabilities of selecting rows and pasting into programs like Excel are locked behind the enterprise version of AG Grid, which I of course only have the community version of. From the looks of it, we just need to add the 'cellSelection' and 'copyHeadersToClipboard' props (both booleans) to AgGridReact component to achieve such capabilities. Adding the props is allowed, but the console prints out an error detailing the required library.
+```
+    <AgGridReact
+        rowData={data}
+        columnDefs={neoGridColumns}
+        cellSelection
+        copyHeadersToClipboard
+    />
+```
