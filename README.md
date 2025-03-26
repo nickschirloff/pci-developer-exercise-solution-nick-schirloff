@@ -63,3 +63,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
     />
 ```
 6. Added simple button to clear filters. Used a ref to the grid to reset column state and clear set filters.
+7. Moved models, pages, components into their relevant folders. Cleaned up project. Inserted my new main page into Grid.tsx in order to keep CSS stylings. 
+
+This was a fun project! I enjoyed learning AG Grid, it seems like a powerful and fun tool to use. Please reach out if you have any questions for me. Thank you!
