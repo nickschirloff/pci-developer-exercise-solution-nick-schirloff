@@ -52,6 +52,17 @@ const formatDateValue = (unixDate: string): string => {
   return `${year}-${month}-${day}`;
 }
 
+const formatHazardousColumn = (defaultValue: string) => {
+  switch(defaultValue.toLowerCase()) {
+    case "y":
+      return "Yes";
+    case "n":
+      return "No";
+    default:
+      return "";
+  }
+}
+
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation", filter: "agTextColumnFilter" },
   { field: "discovery_date", headerName: "Discovery Date", filter: "agSetColumnFilter", valueGetter: date => formatDateValue(date.data.discovery_date) },
@@ -61,7 +72,7 @@ const columnDefs: ColDef[] = [
   { field: "q_au_2", headerName: "Q (au)", comparator: compareNumericStrings, filter: "agNumberColumnFilter", filterParams: { filterOptions: numericStringColumnFilter } },
   { field: "period_yr", headerName: "Period (yr)", comparator: compareNumericStrings, filter: "agNumberColumnFilter", filterParams: { filterOptions: numericStringColumnFilter } },
   { field: "i_deg", headerName: "Inclination (deg)", comparator: compareNumericStrings, filter: "agNumberColumnFilter", filterParams: { filterOptions: numericStringColumnFilter } },
-  { field: "pha", headerName: "Potentially Hazardous", filter: "agTextColumnFilter" },
+  { field: "pha", headerName: "Potentially Hazardous", filter: "agTextColumnFilter", valueGetter: value => formatHazardousColumn(value.data.pha), },
   { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true, filter: "agTextColumnFilter" },
 ];
 const NeoGrid = (): JSX.Element => {
