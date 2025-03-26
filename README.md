@@ -62,3 +62,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
         copyHeadersToClipboard
     />
 ```
+6. Added simple button to clear filters. Used a ref to the grid to reset column state and clear set filters.

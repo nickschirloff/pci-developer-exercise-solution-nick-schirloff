@@ -3,6 +3,7 @@ import { ColDef, IFilterOptionDef } from "ag-grid-community";
 import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { useRef } from "react";
 
 const convertStringToNumber = (value: string) => {
   return Number(value);
@@ -75,17 +76,34 @@ const columnDefs: ColDef[] = [
   { field: "pha", headerName: "Potentially Hazardous", filter: "agTextColumnFilter", valueGetter: value => formatHazardousColumn(value.data.pha), },
   { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true, filter: "agTextColumnFilter" },
 ];
+
 const NeoGrid = (): JSX.Element => {
   const appTitle = "Near-Earth Object Overview";
   document.title = appTitle;
+
+  const gridRef = useRef<AgGridReact>(null);
+
+  const clearFiltersAndSorts = () => {
+      gridRef.current?.api.setFilterModel(null);
+      gridRef.current?.api.resetColumnState();
+  }
   
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
-      <h1>{appTitle}</h1>
+      <div style={{ 
+        width: "100%", 
+        display: "flex", 
+        alignItems: "center", 
+        gap: "15px" }}
+      >
+        <h1>{appTitle}</h1>
+        <button onClick={clearFiltersAndSorts}>Clear Filters and Sorters</button>
+      </div>
       <AgGridReact
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
+        ref={gridRef}
       />
     </div>
   );
